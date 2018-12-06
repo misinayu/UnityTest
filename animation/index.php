@@ -26,7 +26,7 @@ y= 200;
 var img = new Array();
 img.right = new Image();
 img.right.src = "images/mario_1.png";
-imt.rightMove01 = new Image();
+img.rightMove01 = new Image();
 img.rightMove01.src = "images/mario_2.png";
 img.rightMove02 = new Image();
 img.rightMove02.src = "images/mario_3.png";
@@ -46,8 +46,9 @@ function KeyCode()
     switch (kcode) {
     case 0x25:
         // 左矢印キー
-        if (x>1)  x-= 20;
-        moveRight(); // TODO::右に動かす
+        if (x>1) {
+            moveLeft();
+        }
         break;
     // case 0x26:
         // 上矢印キー
@@ -55,14 +56,45 @@ function KeyCode()
     //    break;
     case 0x27:
         // 右矢印キー
-        if (x < 1000) x+= 20;
-        moveLeft(); // TODO::右に動かす
+        if (x < 1000) {
+            moveRight();
+        }
         break;
     // case 0x28:
         // 下矢印キー
     //     y+= 20;
     //     break;
     }
+}
+
+// 右にキャラを動かす
+function moveRight(){
+    var mario = document.getElementById("mario");
+    if (mario.src == img.right.src || mario.src == img.left.src) {
+        mario.src = img.rightMove01.src;
+    } else if (mario.src == img.rightMove01.src) {
+        mario.src = img.rightMove02.src;
+    } else if (mario.src == img.rightMove02.src) {
+        mario.src = img.rightMove01.src;
+    } else {
+        mario.src = img.rightMove01.src;
+    }
+    x+= 20;
+}
+
+// 左にキャラを動かす
+function moveLeft(){
+    var mario = document.getElementById("mario");
+    if (mario.src == img.right.src || mario.src == img.left.src) {
+        mario.src = img.leftMove01.src;
+    } else if (mario.src == img.leftMove01.src) {
+        mario.src = img.leftMove02.src;
+    } else if (mario.src == img.leftMove02.src) {
+        mario.src = img.leftMove01.src;
+    } else {
+        mario.src = img.leftMove01.src;
+    }
+    x-= 20;
 }
 
 function moveImage()
