@@ -66,7 +66,7 @@ function moveRight(){
         return;
     }
 
-    x+= 10;
+    x += 10;
 
     if (mario.src == img.right01.src) {
         mario.src = img.right02.src;
@@ -88,7 +88,7 @@ function moveLeft(){
         return;
     }
 
-    x-= 10;
+    x -= 10;
     if (mario.src == img.left01.src) {
         mario.src = img.left02.src;
     } else if (mario.src == img.left02.src) {
