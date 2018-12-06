@@ -14,28 +14,28 @@ body {
 #mario {
     position:absolute;
     left:300px;
-    top:200px;
+    top:185px;
 }
 </style>
 
 <script type="text/javascript">
 document.onkeydown = KeyCode;
 x= 300; // TODO::初期位置を枠の中に収める
-y= 200;
+y= 185;
 
 var img = new Array();
-img.right = new Image();
-img.right.src = "images/mario_1.png";
-img.rightMove01 = new Image();
-img.rightMove01.src = "images/mario_2.png";
-img.rightMove02 = new Image();
-img.rightMove02.src = "images/mario_3.png";
-img.left = new Image();
-img.left.src = "images/mario_4.png";
-img.leftMove01 = new Image();
-img.leftMove01.src = "images/mario_5.png";
-img.leftMove02 = new Image();
-img.leftMove02.src = "images/mario_6.png";
+img.right01 = new Image();
+img.right01.src = "images/mario_1.png";
+img.right02 = new Image();
+img.right02.src = "images/mario_2.png";
+img.right03 = new Image();
+img.right03.src = "images/mario_3.png";
+img.left01 = new Image();
+img.left01.src = "images/mario_4.png";
+img.left02 = new Image();
+img.left02.src = "images/mario_5.png";
+img.left03 = new Image();
+img.left03.src = "images/mario_6.png";
 
 function KeyCode()
 {
@@ -50,53 +50,55 @@ function KeyCode()
             moveLeft();
         }
         break;
-    // case 0x26:
-        // 上矢印キー
-    //    if (y>1)  y-= 20;
-    //    break;
     case 0x27:
         // 右矢印キー
-        if (x < 1000) {
-            moveRight();
-        }
+        moveRight();
         break;
-    // case 0x28:
-        // 下矢印キー
-    //     y+= 20;
-    //     break;
     }
 }
 
-// 右にキャラを動かす
+// 右向きの画像切替
 function moveRight(){
     var mario = document.getElementById("mario");
-    if (mario.src == img.right.src || mario.src == img.left.src) {
-        mario.src = img.rightMove01.src;
-    } else if (mario.src == img.rightMove01.src) {
-        mario.src = img.rightMove02.src;
-    } else if (mario.src == img.rightMove02.src) {
-        mario.src = img.rightMove01.src;
-    } else {
-        mario.src = img.rightMove01.src;
+
+    if (x > (1000 - mario.width)) {
+        return;
     }
+
     x+= 20;
+
+    if (mario.src == img.right01.src) {
+        mario.src = img.right02.src;
+    } else if (mario.src == img.right02.src) {
+        mario.src = img.right03.src;
+    } else if (mario.src == img.right03.src) {
+        mario.src = img.right01.src;
+    } else {
+        mario.src = img.right01.src;
+    }
 }
 
-// 左にキャラを動かす
+// 左向きの画像切替
 function moveLeft(){
     var mario = document.getElementById("mario");
-    if (mario.src == img.right.src || mario.src == img.left.src) {
-        mario.src = img.leftMove01.src;
-    } else if (mario.src == img.leftMove01.src) {
-        mario.src = img.leftMove02.src;
-    } else if (mario.src == img.leftMove02.src) {
-        mario.src = img.leftMove01.src;
-    } else {
-        mario.src = img.leftMove01.src;
+
+    if (x < 1) {
+        return;
     }
+
     x-= 20;
+    if (mario.src == img.left01.src) {
+        mario.src = img.left02.src;
+    } else if (mario.src == img.left02.src) {
+        mario.src = img.left03.src;
+    } else if (mario.src == img.left03.src) {
+        mario.src = img.left01.src;
+    } else {
+        mario.src = img.left01.src;
+    }
 }
 
+// 画像の位置を動かす
 function moveImage()
 {
     document.mario.style.left= x;
@@ -108,7 +110,7 @@ function moveImage()
 <body onLoad="setInterval('moveImage()',25)">
 
 <h2>アニメーションとイベント駆動処理</h2>
-<div class="screen">
+<div id="screen" class="screen">
     <img id="mario" src="images/mario_1.png" name="mario">
 </div>
 </body>
