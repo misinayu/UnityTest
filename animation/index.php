@@ -3,6 +3,7 @@
 <style>
 body {
     background-color: #f4f8ff;
+    margin: 10px;
 }
 
 .screen {
@@ -20,7 +21,7 @@ body {
 
 <script type="text/javascript">
 document.onkeydown = KeyCode;
-x= 300; // TODO::初期位置を枠の中に収める
+x= 300;
 y= 185;
 
 var img = new Array();
@@ -46,9 +47,7 @@ function KeyCode()
     switch (kcode) {
     case 0x25:
         // 左矢印キー
-        if (x>1) {
-            moveLeft();
-        }
+        moveLeft();
         break;
     case 0x27:
         // 右矢印キー
@@ -59,13 +58,15 @@ function KeyCode()
 
 // 右向きの画像切替
 function moveRight(){
+    //var screen = document.getElementById("screen");
     var mario = document.getElementById("mario");
 
     if (x > (1000 - mario.width)) {
+    //if (x > (screen.left + screen.width)) {
         return;
     }
 
-    x+= 20;
+    x+= 10;
 
     if (mario.src == img.right01.src) {
         mario.src = img.right02.src;
@@ -80,13 +81,14 @@ function moveRight(){
 
 // 左向きの画像切替
 function moveLeft(){
+    //var screen = document.getElementById("screen");
     var mario = document.getElementById("mario");
 
-    if (x < 1) {
+    if (x < 20) {
         return;
     }
 
-    x-= 20;
+    x-= 10;
     if (mario.src == img.left01.src) {
         mario.src = img.left02.src;
     } else if (mario.src == img.left02.src) {
